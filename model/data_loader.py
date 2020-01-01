@@ -77,7 +77,7 @@ class DATA_LOADER(object):
         feature = matcontent['features'].T
         label = matcontent['labels'].astype(int).squeeze() - 1
 
-        path= self.datadir + 'att_splits.mat'
+        path = self.datadir + 'att_splits.mat'
         matcontent = sio.loadmat(path)
         # numpy array index starts from 0, matlab starts from 1
         trainval_loc = matcontent['trainval_loc'].squeeze() - 1
@@ -129,7 +129,7 @@ class DATA_LOADER(object):
         self.data = {}
         self.data['train_seen'] = {}
         self.data['train_seen']['resnet_features'] = train_feature
-        self.data['train_seen']['labels']= train_label
+        self.data['train_seen']['labels'] = train_label
         self.data['train_seen'][self.auxiliary_data_source] = self.aux_data[train_label]
 
 
@@ -293,4 +293,6 @@ class DATA_LOADER(object):
         if use_hie:
             self.data['train_seen_unseen_mixed']['wordnet'] = torch.cat((self.data['train_seen']['wordnet'],self.data['train_unseen']['wordnet']),dim=0)
 
+    # def __len__(self):
+    #    return 100000000
 #d = DATA_LOADER()
