@@ -130,6 +130,8 @@ class Model(nn.Module):
 
         reconstruction_loss = self.reconstruction_criterion(img_from_img, img) \
                               + self.reconstruction_criterion(att_from_att, att)
+        print("Reconstruction loss :: {}".format(reconstruction_loss))
+    
 
         ##############################################
         # Cross Reconstruction Loss
@@ -139,7 +141,8 @@ class Model(nn.Module):
 
         cross_reconstruction_loss = self.reconstruction_criterion(img_from_att, img) \
                                     + self.reconstruction_criterion(att_from_img, att)
-
+        print("Cross reconstruction loss :: {}".format(cross_reconstruction_loss))
+        
         ##############################################
         # KL-Divergence
         ##############################################
@@ -395,7 +398,7 @@ class Model(nn.Module):
             z_unseen_att = convert_datapoints_to_z(att_unseen_feat, self.encoder[self.auxiliary_data_source])
 
             train_Z = [z_seen_img, z_unseen_img ,z_seen_att    ,z_unseen_att]
-            train_L = [img_seen_label    , img_unseen_label,att_seen_label,att_unseen_label]
+            train_L = [img_seen_label, img_unseen_label, att_seen_label, att_unseen_label]
 
             # empty tensors are sorted out
             train_X = [train_Z[i] for i in range(len(train_Z)) if train_Z[i].size(0) != 0]
